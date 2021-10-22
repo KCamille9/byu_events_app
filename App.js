@@ -1,21 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import CustomDrawer from "./navigation/CustomDrawer"
+
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+const fetchFont = () => {
+  return Font.loadAsync({
+    "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf")
+  })
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Stack = createStackNavigator();
+
+export default function App() {
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+    if (!fontLoaded) {
+      return (
+        <AppLoading 
+          startAsync={fetchFont}
+          onError={() => console.log("ERROR")}
+          onFinish={() => {
+            setFontLoaded(true);
+          }}
+        />
+      );
+    }
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+                initialRouteName={'Home'}
+            >
+                <Stack.Screen
+                    name="Home"
+                    component={CustomDrawer}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
+}
+
+//export default App
