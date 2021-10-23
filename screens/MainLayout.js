@@ -184,15 +184,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
     React.useEffect(() => {
 
         if (selectedTab == constants.screens.home) {
-            homeTabFlex.value = withTiming(4, { duration: 500 })
-            homeTabColor.value = withTiming(COLORS.primary, { duration: 500 })
-        }
-        else{
-            homeTabFlex.value = withTiming(1, { duration: 500 })
-            homeTabColor.value = withTiming(COLORS.white, { duration: 500 })
-        }
-
-        if (selectedTab == constants.screens.home) {
+            flatListRef?.current?.scrollToIndex({
+                index: 0,
+                animated: false
+            })
             homeTabFlex.value = withTiming(4, { duration: 500 })
             homeTabColor.value = withTiming(COLORS.primary, { duration: 500 })
         }
@@ -202,6 +197,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
         }
         
         if (selectedTab == constants.screens.search) {
+            flatListRef?.current?.scrollToIndex({
+                index: 1,
+                animated: false
+            })
             searchTabFlex.value = withTiming(4, { duration: 500 })
             searchTabColor.value = withTiming(COLORS.primary, { duration: 500 })
         }
@@ -211,6 +210,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
         }
 
         if (selectedTab == constants.screens.cart) {
+            flatListRef?.current?.scrollToIndex({
+                index: 2,
+                animated: false
+            })
             cartTabFlex.value = withTiming(4, { duration: 500 })
             cartTabColor.value = withTiming(COLORS.primary, { duration: 500 })
         }
@@ -220,6 +223,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
         }
 
         if (selectedTab == constants.screens.favourite) {
+            flatListRef?.current?.scrollToIndex({
+                index: 3,
+                animated: false
+            })
             favouriteTabFlex.value = withTiming(4, { duration: 500 })
             favouriteTabColor.value = withTiming(COLORS.primary, { duration: 500 })
         }
@@ -229,6 +236,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
         }
 
         if (selectedTab == constants.screens.notification) {
+            flatListRef?.current?.scrollToIndex({
+                index: 4,
+                animated: false
+            })
             notificationTabFlex.value = withTiming(4, { duration: 500 })
             notificationTabColor.value = withTiming(COLORS.primary, { duration: 500 })
         }
