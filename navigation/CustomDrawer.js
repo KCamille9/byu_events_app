@@ -10,7 +10,7 @@ import {
     createDrawerNavigator,
     DrawerContentScrollView
 } from "@react-navigation/drawer";
-import Animated from 'react-native-reanimated';
+import Animated, { useSharedValue } from 'react-native-reanimated';
 import { connect } from "react-redux";
 import { setSelectedTab } from '../stores/tab/tabActions';
 
