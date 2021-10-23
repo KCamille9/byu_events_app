@@ -11,6 +11,8 @@ import {
     DrawerContentScrollView
 } from "@react-navigation/drawer";
 import Animated from 'react-native-reanimated';
+import { connect } from "react-redux";
+import { setSelectedTab } from '../stores/tab/tabActions';
 
 import { MainLayout } from "../screens";
 import {
@@ -25,7 +27,7 @@ import {
 
 const Drawer = createDrawerNavigator() 
 
-const CustomDrawerItem = ({ label, icon }) => {
+const CustomDrawerItem = ({ label, icon, isFocused, onPress }) => {
     return (
         <TouchableOpacity
             style={{
@@ -34,28 +36,28 @@ const CustomDrawerItem = ({ label, icon }) => {
                 marginBottom: SIZES.base,
                 alignItems: 'center',
                 paddingLeft: SIZES.radius, 
-                borderRadius: SIZES.base
-                //backgroundColor
+                borderRadius: SIZES.base,
+                backgroundColor: isFocused ? COLORS.transparentBlack1 : null
             }}
-            //onPress
+            onPress={onPress}
         >
             <Image
                 source={icon}
                 style={{
                     width: 20,
                     height: 20,
-                    tintColor: COLORS.white
+                    tintColor: COLORS.darkBlue
                 }}
             />
 
             <Text
                 style={{
                     marginLeft: 15,
-                    color: COLORS.white,
+                    color: COLORS.darkBlue,
                     ...FONTS.h3
                 }}
             >
-                
+                {label}
             </Text>
 
         </TouchableOpacity>
@@ -63,7 +65,7 @@ const CustomDrawerItem = ({ label, icon }) => {
 
 }
 
-const CustomDrawerContent = ({ navigation }) => {
+const CustomDrawerContent = ({ navigation, selectedTab, setSelectedTab }) => {
     return (
         <DrawerContentScrollView
             scrollEnabled={true}
@@ -94,7 +96,7 @@ const CustomDrawerContent = ({ navigation }) => {
                             style={{
                                 height: 35,
                                 width: 35,
-                                tintColor: COLORS.white
+                                tintColor: COLORS.darkBlue
                             }}
                         />
                     </TouchableOpacity>
@@ -125,7 +127,7 @@ const CustomDrawerContent = ({ navigation }) => {
                     >
                         <Text
                             style={{
-                                color: COLORS.white,
+                                color: COLORS.darkBlue,
                                 ... FONTS.h3
                             }}
                         >
@@ -134,7 +136,7 @@ const CustomDrawerContent = ({ navigation }) => {
 
                         <Text
                             style={{
-                                color: COLORS.white,
+                                color: COLORS.darkBlue,
                                 ... FONTS.body4
                             }}
                         >
@@ -153,11 +155,16 @@ const CustomDrawerContent = ({ navigation }) => {
                     <CustomDrawerItem
                         label={constants.screens.home}
                         icon={icons.home}
+                        isFocused={selectedTab == constants.screens.home}
+                        onPress={() => {
+                            setSelectedTab(constants.screens.home)
+                            navigation.navigate("MainLayout")
+                        }}
                     />
 
                     <CustomDrawerItem
                         label={constants.screens.my_wallet}
-                        icon={icons.wallter}
+                        icon={icons.wallet}
                     />
 
                     <CustomDrawerItem
@@ -203,7 +210,7 @@ const CustomDrawerContent = ({ navigation }) => {
 }
 
 
-const CustomDrawer = () => {
+const CustomDrawer = (selectedTab, setSelectedTab) => {
     const [progress, setProgress] = React.useState(new 
         Animated.Value(0))
 
@@ -247,6 +254,8 @@ const CustomDrawer = () => {
                     return (
                         <CustomDrawerContent
                             navigation={props.navigation}
+                            selectedTab={selectedTab}
+                            setSelectedTab={setSelectedTab}
                         />
                     )
                 }}
@@ -263,4 +272,18 @@ const CustomDrawer = () => {
     )
 }
 
-export default CustomDrawer;
+function mapStateToProps(state) {
+    return {
+        selectedTab: state.tabReducer.selectedTab
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setSelectedTab: (selectedTab) => { return dispatch
+        (setSelectedTab(selectedTab)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)
+(CustomDrawer)
