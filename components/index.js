@@ -2,6 +2,7 @@ import Header from "./Header";
 import HorizontalFoodCard from "./HorizontalFoodCard";
 import IconButton from "./IconButton";
 import TextButton from "./TextButton";
+import TextIconButton from "./TextIconButton";
 import VerticalFoodCard from "./VerticalFoodCard";
 
 export {
@@ -9,5 +10,6 @@ export {
     HorizontalFoodCard,
     IconButton,
     TextButton,
+    TextIconButton,
     VerticalFoodCard
 }
