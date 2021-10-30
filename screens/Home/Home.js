@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 
 import {
-    HorizontalFoodCard
+    HorizontalFoodCard,
+    VerticalFoodCard
 } from "../../components"
 
 import { FONTS, SIZES, COLORS, icons, dummyData } 
@@ -38,8 +39,10 @@ const Section = ({ title, onPress, children }) => {
                         Show All
                     </Text>
                 </TouchableOpacity>
-
             </View>
+
+            {/* Content */}
+            { children }
         </View>
     )
 }
@@ -51,6 +54,8 @@ const Home = () => {
 
     const [selectedMenuType, setSelectedMenuType] = 
     React.useState(1)
+
+    const [popular, setPopular] = React.useState([])
 
     const [recommends, setRecommends] = React.useState([])
 
@@ -64,11 +69,17 @@ const Home = () => {
 
     // Handler
     function handleChangeCategory(categoryId, menuTypeId) {
+        // Retrieve the popular menu
+        let selectedPopular = dummyData.menu.find(a => a.name == "Popular")
+
         // Retrieve the recommended menu
         let selectedRecommend = dummyData.menu.find(a => a.name == "Recommended")
 
-        // FInd menu based on the menuTypeId
+        // Find menu based on the menuTypeId
         let selectedMenu = dummyData.menu.find(a => a.id == menuTypeId)
+
+        // Set the popular menu based on categoryId
+        setPopular(selectedPopular?.list.filter(a => a.categories.includes(categoryId)))
 
         // Set the recommended menu based on categoryId
         setRecommends(selectedRecommend?.list.filter(a => a.categories.includes(categoryId)))
@@ -204,11 +215,91 @@ const Home = () => {
 
                     )}
 
-
                 />
-            
-
             </Section>
+        )
+    }
+
+    function renderPopularSection() {
+        return (
+            <Section 
+                title="Popular Near You"
+                onPress={() => console.log("Show all popular items")}
+            >
+                <FlatList
+                    data={popular}
+                    keyExtractor={item => `${item.id}`}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+                        <VerticalFoodCard
+                            containerStyle={{
+                                marginLeft: index == 0 ?
+                                SIZES.padding : 18,
+                                marginRight: index == popular.length - 1 ?
+                                SIZES.padding : 0
+                            }}
+                            item={item}
+                            onPress={() => console.log("Vertical Food Court")}
+                        />
+                    )}
+                />
+            </Section>
+        )
+    }
+
+    function renderFoodCategories() {
+        return (
+            <FlatList
+                data={dummyData.categories}
+                keyExtractor={item => `${item.id}`}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item, index}) => (
+                    <TouchableOpacity
+                        style={{
+                            flexDirection: 'row',
+                            height: 55,
+                            marginTop: SIZES.padding,
+                            marginLeft: index == 0 ? SIZES.padding : SIZES.radius,
+                            marginRight: index == dummyData.categories.length - 1 ?
+                            SIZES.padding : 0,
+                            paddingHorizontal: 8,
+                            borderRadius: SIZES.radius,
+                            backgroundColor: selectedCategoryId == item.id ?
+                            COLORS.primary : COLORS.lightGray2
+                        }}
+                        onPress={() => {
+                            console.log(item.name)
+                            setSelectedCategoryId(item.id)
+                            handleChangeCategory(item.id, selectedMenuType)
+                        }}
+                    >
+                        <Image
+                            source={item.icon}
+                            style={{
+                                marginTop: 5,
+                                height: 50,
+                                width: 50
+                            }}
+                        />
+
+                        <Text
+                            style={{
+                                alignSelf: 'center',
+                                marginRight: SIZES.base,
+                                color: selectedCategoryId == item.id ?
+                                COLORS.white : COLORS.darkGray, 
+                                ...FONTS.h3
+                            }}
+                        >
+                            {item.name}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+            >
+
+            </FlatList>
         )
     }
 
@@ -229,6 +320,12 @@ const Home = () => {
 
                 ListHeaderComponent={
                     <View>
+                        {/* Food Categories */}
+                        {renderFoodCategories()}
+
+                        {/* Popular */}
+                        {renderPopularSection()}
+
                         {/* Recommended */}
                         {renderRecommendedSection()}
 
