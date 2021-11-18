@@ -31,7 +31,7 @@ const Section = ({ title, onPress, children }) => {
                 }}
             >
                 <Text style={{ flex: 1, ...FONTS.h3 }}>
-                    { title }
+                    { 'Test' }
                 </Text>
 
                 <TouchableOpacity
@@ -96,7 +96,7 @@ const Home = () => {
             <View
                 style={{
                     flexDirection: 'row',
-                    heigth: 40,
+                    height: 40,
                     alignItems: 'center',
                     marginHorizontal: SIZES.padding,
                     marginVertical: SIZES.base,

@@ -261,7 +261,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
         >
 
             {/* Header */}
-            <Header
+            {/* <Header
                 containerStyle={{
                     height: 50,
                     paddingHorizontal: SIZES.padding,
@@ -308,7 +308,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
 
                     </TouchableOpacity>
                 }
-            />
+            /> */}
 
             {/* Content */}
             <View
@@ -354,12 +354,10 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
             >
                 {/* Shadow */}
                 <LinearGradient
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 0, y: 4 }}
-                    colors={[
-                        COLORS.transparent,
-                        COLORS.lightGray1
-                    ]}
+                    colors={[COLORS.transparent, COLORS.lightGray1]}
+                    start={[0, 0]}
+                    end={[0,  4]}
+                    // location={[0.25, 0.4, 1]}
                     style={{
                         position: 'absolute',
                         top: -20,
@@ -395,7 +393,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
                         label={constants.screens.search}
                         icon={icons.search}
                         isFocused={selectedTab == constants.screens.search}
-                        uterContainerStyle={searchFlexStyle}
+                        outerContainerStyle={searchFlexStyle}
                         innerContainerStyle={searchColorStyle}
                         onPress={() => setSelectedTab(constants.screens.search)}
                     />
@@ -403,7 +401,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
                         label={constants.screens.cart}
                         icon={icons.cart}
                         isFocused={selectedTab == constants.screens.cart}
-                        uterContainerStyle={cartFlexStyle}
+                        outerContainerStyle={cartFlexStyle}
                         innerContainerStyle={cartColorStyle}
                         onPress={() => setSelectedTab(constants.screens.cart)}
                     />
@@ -411,7 +409,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
                         label={constants.screens.favourite}
                         icon={icons.favourite}
                         isFocused={selectedTab == constants.screens.favourite}
-                        uterContainerStyle={favouriteFlexStyle}
+                        outerContainerStyle={favouriteFlexStyle}
                         innerContainerStyle={favouriteColorStyle}
                         onPress={() => setSelectedTab(constants.screens.favourite)}
                     />
@@ -419,7 +417,7 @@ const MainLayout = ({ drawerAnimationStyle, navigation, selectedTab,
                         label={constants.screens.notification}
                         icon={icons.notification}
                         isFocused={selectedTab == constants.screens.notification}
-                        uterContainerStyle={notificationFlexStyle}
+                        outerContainerStyle={notificationFlexStyle}
                         innerContainerStyle={notificationColorStyle}
                         onPress={() => setSelectedTab(constants.screens.notification)}
                     />
