@@ -9,7 +9,7 @@ import {
 
 import { COLORS, FONTS, SIZES, icons } from "../constants";
 
-const HorizontalFoodCard = ({ containerStyle, imageStyle, item, onPress}) => {
+const DateBox = ({ containerStyle, imageStyle, item, onPress}) => {
 
     return (
         <TouchableOpacity
@@ -20,11 +20,32 @@ const HorizontalFoodCard = ({ containerStyle, imageStyle, item, onPress}) => {
                 ...containerStyle
             }}
         >
+            {/* Info */}
+            <View
+                style={{
+                    // flex: 1,
+                    marginLeft: 50,
+                    marginRight: 50,
+                    alignItems: 'center'
+                }}
+            >
+                {/* Name */}
+                <Text style={{...FONTS.h3, fontSize: 17}}>
+                    NOV
+                </Text>
+
+                {/* Description */}
+                <Text style={{...FONTS.body4, color: COLORS.darkGray2}}>
+                    18
+                </Text>
+
+            </View>
+            
             {/* Image */}
-            <Image
+            {/* <Image
                 source={item.image}
                 style={imageStyle}
-            />
+            /> */}
 
             {/* Info */}
             <View
@@ -44,7 +65,7 @@ const HorizontalFoodCard = ({ containerStyle, imageStyle, item, onPress}) => {
 
                 {/* Price */}
                 <Text style={{...FONTS.h2, marginTop: SIZES.base}}>
-                    ${item.price}
+                    {item.price}
                 </Text>
 
             </View>
@@ -76,4 +97,4 @@ const HorizontalFoodCard = ({ containerStyle, imageStyle, item, onPress}) => {
     
 }
 
-export default HorizontalFoodCard;
+export default DateBox;

@@ -24,12 +24,30 @@ const categories = [
     }
 ]
 
+const dateCategories = [
+    {
+        id: 1,
+        name: "Today",
+        icon: icons.burger
+    },
+    {
+        id: 2,
+        name: "Tomorrow",
+        icon: icons.cherry
+    },
+    {
+        id: 3,
+        name: "This week",
+        icon: icons.rice
+    }
+]
+
 const hamburger = {
     id: 1,
-    name: "Hamburger",
-    description: "Chicken patty hamburger",
+    name: "CS CLUB 1st ACTIVITY",
+    description: "BYU CS Club",
     categories: [1, 2],
-    price: 15.99,
+    price: "This shot is about a simple, elegant, and powerful layout. The design will help to implement a good user experience and flexible user flow.",
     calories: 78,
     isFavourite: true,
     image: require("../assets/dummyData/hamburger.png")
@@ -66,6 +84,14 @@ const wrapSandwich = {
     calories: 78,
     isFavourite: true,
     image: require("../assets/dummyData/wrap_sandwich.png")
+}
+
+const novEighteen = {
+    id: 6,
+    name: "November",
+    description: "18",
+    dateCategories: [1],
+    categories: [1, 2]
 }
 
 const menu = [
@@ -114,9 +140,20 @@ const menu = [
 
 ]
 
+const dates = [
+    {
+        id: 1,
+        list: [
+            novEighteen,
+        ]
+    }
+
+]
+
 
 export default {
     myProfile,
     categories,
     menu,
+    dates
 }

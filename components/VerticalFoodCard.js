@@ -79,7 +79,7 @@ const VerticalFoodCard = ({ containerStyle, item, onPress}) => {
                     {item.description} 
                 </Text>
                 <Text style={{ marginTop: SIZES.radius, ...FONTS.h2}}>
-                    ${item.price}
+                    {item.price}
                 </Text>
             </View>
 
