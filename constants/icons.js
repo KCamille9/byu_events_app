@@ -21,6 +21,8 @@ const star = require("../assets/icons/star.png")
 const wallet = require("../assets/icons/wallet.png")
 const help = require("../assets/icons/help.png")
 const bookmark = require("../assets/icons/bookmark.png")
+const calendar = require("../assets/icons/calendar2.png")
+
 
 
 export default {
@@ -46,5 +48,6 @@ export default {
     star,
     wallet,
     help,
-    bookmark
+    bookmark,
+    calendar
 }

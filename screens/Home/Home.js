@@ -5,7 +5,9 @@ import {
     TouchableOpacity,
     Image,
     TextInput,
-    FlatList
+    FlatList,
+    ImageBackground,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 import { FilterModal } from "../";
@@ -14,10 +16,15 @@ import {
     HorizontalFoodCard,
     VerticalFoodCard,
 } from "../../components"
+
 import DateBox from '../../components/DateBox';
 
-import { FONTS, SIZES, COLORS, icons, dummyData }
-    from "../../constants"
+import styled from 'styled-components/native';
+
+import { FONTS, SIZES, COLORS, icons, dummyData, images }
+    from "../../constants";
+
+import moment from 'moment';
 
 const Section = ({ title, onPress, children }) => {
     return (
@@ -50,7 +57,17 @@ const Section = ({ title, onPress, children }) => {
     )
 }
 
-const Home = () => {
+
+const DateSquare = styled.View`
+    width: 60px;
+    height: 60px;
+    border-radius: 15;
+    background-color: ${COLORS.white};
+    justify-content: center;
+    align-items: center;
+`;
+
+const Home = ({ navigation }) => {
 
     const [selectedCategoryId, setSelectedCategoryId] = React.useState(1)
 
@@ -99,7 +116,89 @@ const Home = () => {
         setDateToday(selectedTodayDate?.list.filter(a => a.categories.includes(categoryId)))
     }
 
+
+
     // Render
+
+
+    const _renderItem = ({ item, index }) => {
+        return (
+            <TouchableWithoutFeedback
+                onPress={()=>{
+                    console.log(item);
+                    navigation.replace('EventDetail', {selectedEvent: item});
+                }}
+            >
+                <View
+                    style={{
+                        marginLeft: index === 0 ? 30 : 20,
+                        marginRight: index === dummyData.events.length - 1 ? 30 : 0
+                    }}
+                >
+                    <ImageBackground source={item.image}
+                        resizeMode='cover'
+                        borderRadius={SIZES.radius}
+                        style={{
+                            width: SIZES.width / 2 + 70,
+                            height: SIZES.width / 2 + 70,
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <View
+                            style={{
+                                alignItems: 'flex-end',
+                                marginHorizontal: 15,
+                                marginVertical: 15
+                            }}
+                        >
+                            <DateSquare>
+                                <Text
+                                    style={{
+                                        letterSpacing: 2
+                                    }}
+                                >
+                                    {moment(item.startingTime).format('MMM').toUpperCase()}
+                                </Text>
+                                <Text
+                                    style={{
+                                        ...FONTS.h2
+                                    }}
+                                >
+                                    {moment(item.startingTime).format('DD')}
+                                </Text>
+                            </DateSquare>
+                        </View>
+                        <View
+                            style={{
+                                marginLeft: 20,
+                                marginBottom: 25
+                            }}
+                        >
+                            <Text style={{ ...FONTS.body3 }}>{item.type}</Text>
+                            <Text style={{ ...FONTS.h2 }}>{item.title}</Text>
+                        </View>
+
+                    </ImageBackground>
+                </View>
+            </TouchableWithoutFeedback>
+        )
+    }
+
+    function renderCategoryData() {
+        return (
+            <View>
+                <FlatList
+                    horizontal
+                    contentContainerStyle={{}}
+                    keyExtractor={(item) => 'event_' + item.id}
+                    data={dummyData.events}
+                    renderItem={_renderItem}
+                >
+
+                </FlatList>
+            </View>
+        )
+    }
 
     function renderSearch() {
         return (
@@ -245,7 +344,7 @@ const Home = () => {
                     renderItem={({ item, index }) => (
                         <DateBox
                             containerStyle={{
-                                height: 180,
+                                height: 260,
                                 width: SIZES.width * 0.85,
                                 marginLeft: index == 0 ? SIZES.padding : 18,
                                 marginRight: index == recommends.length - 1 ?
@@ -373,6 +472,9 @@ const Home = () => {
 
                 ListHeaderComponent={
                     <View>
+                        {/* Books n stuff */}
+                        {renderCategoryData()}
+
                         {/* Food Categories */}
                         {renderFoodCategories()}
 

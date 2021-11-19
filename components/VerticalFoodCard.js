@@ -2,18 +2,44 @@ import React from "react";
 
 import {
     TouchableOpacity,
-    View, 
+    View,
     Text,
     Image
 } from 'react-native'
 
 import { COLORS, FONTS, SIZES, icons } from "../constants";
 
-const VerticalFoodCard = ({ containerStyle, item, onPress}) => {
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withTiming
+} from 'react-native-reanimated';
+
+import TabButtonEvent from "./TabButtonEvent";
+
+const VerticalFoodCard = ({ containerStyle, item, onPress }) => {
+
+    // Reanimated Shared Value
+    const homeTabFlex = useSharedValue(1)
+    const homeTabColor = useSharedValue(COLORS.white)
+
+    // Reanimated Animated Style
+    const homeFlexStyle = useAnimatedStyle(() => {
+        return {
+            flex: homeTabFlex.value
+        }
+    })
+
+    const homeColorStyle = useAnimatedStyle(() => {
+        return {
+            backgroundColor: homeTabColor.value
+        }
+    })
+
     return (
         <TouchableOpacity
             style={{
-                width: 200,
+                width: 300,
                 padding: SIZES.radius,
                 alignItems: 'center',
                 borderRadius: SIZES.radius,
@@ -26,25 +52,24 @@ const VerticalFoodCard = ({ containerStyle, item, onPress}) => {
                 {/* Calories */}
                 <View style={{ flex: 1, flexDirection: 'row' }}>
                     <Image
-                        source={icons.calories}
+                        source={icons.calendar}
                         style={{
-                            width: 30,
-                            height: 30
+                            width: 50,
+                            height: 20
                         }}
                     />
-                    <Text style={{color: COLORS.darkGray2, ...FONTS.body5}}>
-                        {item.calories} Calories
+                    <Text style={{ color: COLORS.darkGray2, ...FONTS.body5 }}>
+                        November 18
                     </Text>
                 </View>
 
                 {/* Favourite */}
                 <Image
-                    source={icons.love}
+                    source={icons.bookmark}
                     style={{
                         width: 20,
                         height: 20,
-                        tintColor: item.isFavourite ? 
-                        COLORS.primary : COLORS.gray
+                        tintColor: COLORS.gray
                     }}
                 />
             </View>
@@ -52,6 +77,7 @@ const VerticalFoodCard = ({ containerStyle, item, onPress}) => {
             {/* Image */}
             <View
                 style={{
+                    marginTop: 20,
                     height: 150,
                     width: 150,
                     alignItems: 'center',
@@ -71,17 +97,30 @@ const VerticalFoodCard = ({ containerStyle, item, onPress}) => {
             <View
                 style={{
                     alignItems: 'center',
-                    marginTop: -20
+                    marginTop: 20
                 }}
             >
                 <Text style={{ ...FONTS.h3 }}> {item.name} </Text>
-                <Text style={{ color: COLORS.darkGray2, textAlign: 'center',...FONTS.body5}}> 
-                    {item.description} 
+                <Text style={{ color: COLORS.darkGray2, textAlign: 'center', ...FONTS.body5 }}>
+                    {item.description}
                 </Text>
-                <Text style={{ marginTop: SIZES.radius, ...FONTS.h2}}>
+                <Text style={{ marginTop: SIZES.radius, ...FONTS.h3 }}>
                     {item.price}
                 </Text>
             </View>
+
+            <TabButtonEvent
+                label={'See details'}
+                icon={icons.home}
+                outerContainerStyle={homeFlexStyle}
+                innerContainerStyle={homeColorStyle}
+
+                style={{
+                    marginTop: 20
+                }}
+            >
+
+            </TabButtonEvent>
 
         </TouchableOpacity>
 

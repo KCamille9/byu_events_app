@@ -50,7 +50,7 @@ const hamburger = {
     price: "This shot is about a simple, elegant, and powerful layout. The design will help to implement a good user experience and flexible user flow.",
     calories: 78,
     isFavourite: true,
-    image: require("../assets/dummyData/hamburger.png")
+    image: require("../assets/dummyData/cs_club_first.png")
 }
 
 const hotTacos = {
@@ -150,10 +150,62 @@ const dates = [
 
 ]
 
+const events = [
+    {
+        id: 1,
+        type: 'CONCERT',
+        title: 'The Weekend',
+        startingTime: '2020/12/21 09:10 PM',
+        image: require('../assets/images/other_words_for_home.jpg'),
+        description: 'Looking to add web dev or mobile dev experience to your resume or don\'t feel like you know enough to help? We have a project for that.'
+    },
+    {
+        id: 2,
+        type: 'SHOW',
+        title: 'The Weekend',
+        startingTime: '2020/12/15 09:10 PM',
+        image: require('../assets/images/other_words_for_home.jpg'),
+        description: 'Looking to add web dev or mobile dev experience to your resume or don\'t feel like you know enough to help? We have a project for that.'
+    },
+    {
+        id: 3,
+        type: 'CONCERT',
+        title: 'The Weekend',
+        startingTime: '2020/12/09 09:10 PM',
+        image: require('../assets/images/other_words_for_home.jpg'),
+        description: 'Looking to add web dev or mobile dev experience to your resume or don\'t feel like you know enough to help? We have a project for that.'
+    },
+    {
+        id: 4,
+        type: 'CONCERT',
+        title: 'The Weekend',
+        startingTime: '2020/12/01 09:10 PM',
+        image: require('../assets/images/other_words_for_home.jpg'),
+        description: 'Looking to add web dev or mobile dev experience to your resume or don\'t feel like you know enough to help? We have a project for that.'
+    },
+    {
+        id: 5,
+        type: 'CONCERT',
+        title: 'The Weekend',
+        startingTime: '2020/12/21 09:10 PM',
+        image: require('../assets/images/other_words_for_home.jpg'),
+        description: 'Looking to add web dev or mobile dev experience to your resume or don\'t feel like you know enough to help? We have a project for that.'
+    },
+    {
+        id: 6,
+        type: 'CONCERT',
+        title: 'The Weekend',
+        startingTime: '2020/12/21 09:10 PM',
+        image: require('../assets/images/other_words_for_home.jpg'),
+        description: 'Looking to add web dev or mobile dev experience to your resume or don\'t feel like you know enough to help? We have a project for that.'
+    }
+]
+
 
 export default {
     myProfile,
     categories,
     menu,
-    dates
+    dates,
+    events
 }

@@ -11,6 +11,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import rootReducer from "./stores/rootReducer";
+import EventDetail from "./screens/Home/EventDetail";
 
 const fetchFont = () => {
   return Font.loadAsync({
@@ -53,6 +54,10 @@ export default function App() {
                   <Stack.Screen
                       name="Home"
                       component={CustomDrawer}
+                  />
+                  <Stack.Screen
+                      name="EventDetail"
+                      component={EventDetail}
                   />
               </Stack.Navigator>
           </NavigationContainer>
