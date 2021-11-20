@@ -121,12 +121,12 @@ const Home = ({ navigation }) => {
     // Render
 
 
-    const _renderItem = ({ item, index }) => {
+    const _renderItem = ({ item, index, navigation }) => {
         return (
             <TouchableWithoutFeedback
                 onPress={()=>{
-                    console.log(item);
-                    navigation.replace('EventDetail', {selectedEvent: item});
+                    console.log(navigation);
+                    navigation?.navigate("EventDetail", {selectedEvent: item});
                 }}
             >
                 <View
